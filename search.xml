@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>代码块功能测试</title>
+    <url>/2022/03/07/Code_Blocks/</url>
+    <content><![CDATA[<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>C/C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第一篇博客文章</title>
+    <url>/2022/03/02/First_Blog/</url>
+    <content><![CDATA[<p><strong>本博客框架与主题分别由Hexo|ButterFly搭建，发布文章部分来源于网络摘抄。若有侵权请联系博主删除，谢谢！本博客仅用于个人学习研究，若他人用于商业等方面，出现问题本博主概不负责。欢迎各位大佬学习交流。</strong></p>
+<p><strong>邮箱：</strong><a href="mailto:&#108;&#x61;&#122;&#x79;&#98;&#x65;&#x61;&#x72;&#120;&#x40;&#49;&#x32;&#54;&#46;&#99;&#111;&#x6d;">&#108;&#x61;&#122;&#x79;&#98;&#x65;&#x61;&#x72;&#120;&#x40;&#49;&#x32;&#54;&#46;&#99;&#111;&#x6d;</a></p>
+<p><strong>QQ ：</strong>321936026</p>
+]]></content>
+      <categories>
+        <category>Myself</category>
+      </categories>
+      <tags>
+        <tag>Myself</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>移植ucosiii遇到的问题</title>
+    <url>/2022/03/12/Move_UCOS/</url>
+    <content><![CDATA[<h5 id="移植ucosiii，移植成功过后进行软件仿真遇到示波器对信号输出不改变的问题？"><a href="#移植ucosiii，移植成功过后进行软件仿真遇到示波器对信号输出不改变的问题？" class="headerlink" title="移植ucosiii，移植成功过后进行软件仿真遇到示波器对信号输出不改变的问题？"></a><strong>移植ucosiii，移植成功过后进行软件仿真遇到示波器对信号输出不改变的问题？</strong></h5><p>在这个地方主要有几个方面的问题：首先是修改cpu_cfg.h文件中宏CPU_CFG_TS_32_EN修改为DEF_DISABLED<br>第二步是修改os_cfg.h文件里面的宏CPU_CFG_TS_EN、OS_CFG_SCHED_LOCK_TIME_MEAS_EN改为0u<br>第三步是查看sys.c文件里面的函数是否有报错，若有报错就查看#define SYSTEM_SUPPORT_OS 1。<br>第四步是把启动文件startup_stm32f10x_hd.s文件中PendSV_Handler和SysTick_Handler分别修改为OS_CPU_PendSVHandler和OS_CPU_SysTickHandler<br>以上是本人自己在针对ucosiii移植过程中进行软仿真示波器信号问题给出的解决方法，感谢。</p>
+]]></content>
+      <categories>
+        <category>µC/OS</category>
+      </categories>
+      <tags>
+        <tag>µC/OS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作数寻址方式</title>
+    <url>/2022/03/17/Operand_Mode/</url>
+    <content><![CDATA[<h1 id="操作数寻址方式"><a href="#操作数寻址方式" class="headerlink" title="操作数寻址方式"></a>操作数寻址方式</h1><h3 id="1、寄存器寻址"><a href="#1、寄存器寻址" class="headerlink" title="1、寄存器寻址"></a>1、寄存器寻址</h3><ul>
+<li>指令实例: Add R4,R2</li>
+<li>含义: Regs[R4]&lt;——Regs[R4]+Regs[R3]</li>
+</ul>
+<h3 id="2、立即数寻址"><a href="#2、立即数寻址" class="headerlink" title="2、立即数寻址"></a>2、立即数寻址</h3><ul>
+<li>指令实例: Add R4,#3</li>
+<li>含义: Regs[R4]&lt;——Regs[R4]+3</li>
+</ul>
+<p><strong>注：立即数不需要访问寄存器，速度快</strong></p>
+<h3 id="3、偏移寻址"><a href="#3、偏移寻址" class="headerlink" title="3、偏移寻址"></a>3、偏移寻址</h3><ul>
+<li>指令实例: Add R4,100(R1)</li>
+<li>含义: Regs[R4]&lt;——Regs[R4]+Mem[100+Regs[R1]]</li>
+</ul>
+<h3 id="4、寄存器间接寻址"><a href="#4、寄存器间接寻址" class="headerlink" title="4、寄存器间接寻址"></a>4、寄存器间接寻址</h3><ul>
+<li>指令实例: Add R4,(R1)</li>
+<li>含义: Regs[R4]&lt;——Regs[R4]+Mem[Regs[R1]]</li>
+</ul>
+<h3 id="5、索引寻址（基址变址寻址）"><a href="#5、索引寻址（基址变址寻址）" class="headerlink" title="5、索引寻址（基址变址寻址）"></a>5、索引寻址（基址变址寻址）</h3><ul>
+<li>指令实例: Add R3,(R1+R2)</li>
+<li>含义: Regs[R3]&lt;——Regs[R3]+Mem[Regs[R1]+Regs[R2]]</li>
+</ul>
+<h3 id="6、直接寻址或绝对寻址"><a href="#6、直接寻址或绝对寻址" class="headerlink" title="6、直接寻址或绝对寻址"></a>6、直接寻址或绝对寻址</h3><ul>
+<li>指令实例: Add R4,(1001)</li>
+<li>含义: Regs[R4]&lt;——Regs[R4]+Mem[1001]</li>
+</ul>
+<h3 id="7、存储器间接寻址"><a href="#7、存储器间接寻址" class="headerlink" title="7、存储器间接寻址"></a>7、存储器间接寻址</h3><ul>
+<li>指令实例: Add R1,@(R3)</li>
+<li>含义: Regs[R1]&lt;——Regs[R1]+Mem[Mem[Regs[3]]]</li>
+</ul>
+<p><strong>注：取操作数需要访问一次寄存器和两次存储器</strong></p>
+<h3 id="8、自增寻址"><a href="#8、自增寻址" class="headerlink" title="8、自增寻址"></a>8、自增寻址</h3><ul>
+<li><p>指令实例: Add R1,(R2)+</p>
+</li>
+<li><p>含义: </p>
+<p>​    Regs[R1]&lt;——Regs[R1]+Mem[Regs[R2]]</p>
+<p>​    Regs[R2]&lt;——Regs[R2]+d</p>
+</li>
+</ul>
+<h3 id="9、自减寻址"><a href="#9、自减寻址" class="headerlink" title="9、自减寻址"></a>9、自减寻址</h3><ul>
+<li>与自增寻址相反，先进行R2地址自减，再进行操作</li>
+</ul>
+<h3 id="10、缩放寻址"><a href="#10、缩放寻址" class="headerlink" title="10、缩放寻址"></a>10、缩放寻址</h3><ul>
+<li>引入移位运算和加法运算，较复杂</li>
+</ul>
+<p>以上总结：现在普遍采用<strong>偏移寻址</strong>、<strong>立即数寻址</strong>、<strong>寄存器间接寻址</strong>等</p>
+]]></content>
+      <categories>
+        <category>计算机体系结构</category>
+      </categories>
+      <tags>
+        <tag>计算机体系结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>通用和复用功能I/O(GPIO和AFIO)</title>
+    <url>/2022/04/06/STM32_GPIO/</url>
+    <content><![CDATA[<h2 id="一、通用和复用功能I-x2F-O-GPIO和AFIO"><a href="#一、通用和复用功能I-x2F-O-GPIO和AFIO" class="headerlink" title="一、通用和复用功能I&#x2F;O(GPIO和AFIO)"></a>一、通用和复用功能I&#x2F;O(GPIO和AFIO)</h2><h5 id="1、GPIO-Mode"><a href="#1、GPIO-Mode" class="headerlink" title="1、GPIO_Mode"></a>1、GPIO_Mode</h5><p>GPIO端口的每个位可以由软件分别配置 成多种模式。<br>    ─      输入浮空                                  GPIO_Mode_IN_FLOATING<br>    ─      输入上拉                                  GPIO_Mode_IPU<br>    ─      输入下拉                                  GPIO_Mode_IPD<br>    ─      模拟输入                                  GPIO_Mode_AIN<br>    ─      开漏输出                                  GPIO_Mode_Out_OD<br>    ─      推挽式输出                             GPIO_Mode_Out_PP<br>    ─      推挽式复用功能                  GPIO_Mode_AF_PP<br>    ─      开漏复用功能                       GPIO_Mode_AF_OD</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220406173546435.png" alt="image-20220406173546435"></p>
+<ul>
+<li>通用I&#x2F;O(GPIO)</li>
+</ul>
+<p>当作为输出配置时，写到输出数据寄存器上的值(GPIOx_ODR)输出到相应的I&#x2F;O引脚。可以以推 挽模式或开漏模式(当输出0时，只有N-MOS被打开)使用输出驱动器。<br>输入数据寄存器(GPIOx_IDR)在每个APB2时钟周期捕捉I&#x2F;O引脚上的数据。<br>所有GPIO引脚有一个内部弱上拉和弱下拉，当配置为输入时，它们可以被激活也可以被断开。</p>
+<ul>
+<li>复用功能(AF)</li>
+</ul>
+<p>对于复用的输入功能，端口必须配置成输入模式(浮空、上拉或下拉)且输入引脚必须由外部 驱动</p>
+<p>对于复用输出功能，端口必须配置成复用功能输出模式(推挽或开漏)</p>
+<p>对于双向复用功能，端口位必须配置复用功能输出模式(推挽或开漏)。这时，输入驱动器被 配置成浮空输入模式</p>
+<h5 id="2、GPIO-Speed"><a href="#2、GPIO-Speed" class="headerlink" title="2、GPIO_Speed"></a>2、GPIO_Speed</h5><p>GPIO_Speed 用以设置选中管脚的速率。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220406173959298.png" alt="image-20220406173959298"></p>
+<h2 id="二、GPIO固件库函数"><a href="#二、GPIO固件库函数" class="headerlink" title="二、GPIO固件库函数"></a>二、GPIO固件库函数</h2><h5 id="1、开启GPIO时钟"><a href="#1、开启GPIO时钟" class="headerlink" title="1、开启GPIO时钟"></a>1、开启GPIO时钟</h5><p>RCC库函数 RCC_APB2PeriphClockCmd 使能或者失能 APB2 外设时钟<br>参数1：<br>RCC_AHB2Periph                            描述<br>RCC_APB2Periph_AFIO          功能复用 IO 时钟<br>RCC_APB2Periph_GPIOA      GPIOA 时钟<br>RCC_APB2Periph_GPIOB      GPIOB 时钟<br>RCC_APB2Periph_GPIOC      GPIOC 时钟<br>RCC_APB2Periph_GPIOD      GPIOD 时钟<br>RCC_APB2Periph_GPIOE      GPIOE 时钟<br>RCC_APB2Periph_ADC1         ADC1 时钟<br>RCC_APB2Periph_ADC2         ADC2 时钟<br>RCC_APB2Periph_TIM1          TIM1 时钟<br>RCC_APB2Periph_SPI1           SPI1 时钟<br>RCC_APB2Periph_USART1    USART1 时钟<br>RCC_APB2Periph_ALL            全部 APB2 外设时钟<br>输入参数2：<br>参数可以取： ENABLE 或者 DISABLE<br>以PC13为例：</p>
+<p> RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC,ENABLE);</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//函数原形:</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">RCC_APB2PeriphClockCmd</span><span class="params">(<span class="type">uint32_t</span> RCC_APB2Periph, FunctionalState NewState)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2、初始化函数"><a href="#2、初始化函数" class="headerlink" title="2、初始化函数"></a>2、初始化函数</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line">  GPIO_Speed_10MHz = <span class="number">1</span>,</span><br><span class="line">  GPIO_Speed_2MHz, </span><br><span class="line">  GPIO_Speed_50MHz</span><br><span class="line">&#125;GPIOSpeed_TypeDef;<span class="comment">//输出速率</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span></span></span><br><span class="line"><span class="class">&#123;</span> GPIO_Mode_AIN = <span class="number">0x0</span>,</span><br><span class="line">  GPIO_Mode_IN_FLOATING = <span class="number">0x04</span>,</span><br><span class="line">  GPIO_Mode_IPD = <span class="number">0x28</span>,</span><br><span class="line">  GPIO_Mode_IPU = <span class="number">0x48</span>,</span><br><span class="line">  GPIO_Mode_Out_OD = <span class="number">0x14</span>,</span><br><span class="line">  GPIO_Mode_Out_PP = <span class="number">0x10</span>,</span><br><span class="line">  GPIO_Mode_AF_OD = <span class="number">0x1C</span>,</span><br><span class="line">  GPIO_Mode_AF_PP = <span class="number">0x18</span></span><br><span class="line">&#125;GPIOMode_TypeDef;<span class="comment">//模式选择</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="type">uint16_t</span> GPIO_Pin;             </span><br><span class="line">  GPIOSpeed_TypeDef GPIO_Speed;                                   </span><br><span class="line">  GPIOMode_TypeDef GPIO_Mode;                                    </span><br><span class="line">&#125;GPIO_InitTypeDef;<span class="comment">//结构体</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  <span class="comment">//输出 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  <span class="comment">//输入 </span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  <span class="comment">//输出 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  <span class="comment">//输入 </span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  <span class="comment">//输出 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  <span class="comment">//输入 </span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  <span class="comment">//输出 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  <span class="comment">//输入 </span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  <span class="comment">//输出 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  <span class="comment">//输入</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  <span class="comment">//输出 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  <span class="comment">//输入</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  <span class="comment">//输出 </span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  <span class="comment">//输入</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">GPIO_Init</span><span class="params">(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)</span><span class="comment">//初始化参数GPIO端口和结构体指针变量</span></span><br><span class="line">    </span><br><span class="line"><span class="type">void</span> <span class="title function_">GPIO_SetBits</span><span class="params">(GPIO_TypeDef* GPIOx, <span class="type">uint16_t</span> GPIO_Pin)</span><span class="comment">//设置高电平</span></span><br><span class="line">   </span><br><span class="line"><span class="type">void</span> <span class="title function_">GPIO_ResetBits</span><span class="params">(GPIO_TypeDef* GPIOx, <span class="type">uint16_t</span> GPIO_Pin)</span><span class="comment">//设置地电平</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3、实例"><a href="#3、实例" class="headerlink" title="3、实例"></a>3、实例</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;led.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stm32f10x_rcc.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">LED_Init</span><span class="params">()</span></span><br><span class="line">&#123;	</span><br><span class="line">	GPIO_InitTypeDef GPIO_InitStruct;</span><br><span class="line">	<span class="comment">//使能GPIOC时钟——&gt;APB2</span></span><br><span class="line">	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC,ENABLE);</span><br><span class="line">	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_13;<span class="comment">//GPIOC13</span></span><br><span class="line">	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;<span class="comment">//推挽输出</span></span><br><span class="line">	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line">	<span class="comment">//初始化GPIOC13引脚，设置输出模式</span></span><br><span class="line">	GPIO_Init(GPIOC,&amp;GPIO_InitStruct);</span><br><span class="line">	GPIO_SetBits(GPIOC,GPIO_Pin_13);<span class="comment">//设置为高电平</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>串行通讯总线(IIC)</title>
+    <url>/2022/04/09/STM32_IIC/</url>
+    <content><![CDATA[<h1 id="IIC总线"><a href="#IIC总线" class="headerlink" title="IIC总线"></a>IIC总线</h1><h3 id="1、IIC简介"><a href="#1、IIC简介" class="headerlink" title="1、IIC简介"></a>1、IIC简介</h3><p>IIC（Inter-Integrated Circuit）其实是IICBus简称，所以中文应该叫集成电路总线，它是一种串行通信总线，使用多主从架构，由飞利浦公司在1980年代为了让主板、嵌入式系统或手机用以连接低速周边设备而发展。IIC模块接收和发送数据，并将数据从串行转换成并行，或并行转换成串行。可以开启或禁止中 断。接口通过数据引脚((SDA)<strong>半双工</strong>)和时钟引脚(SCL)连接到IIC总线。允许连接到标准(高达100kHz)或 快速(高达400kHz)的IIC总线。</p>
+<p>IIC 总线在传送数据过程中共有三种类型信号，分别是：<strong>开始信号、结束信号和应答信号</strong></p>
+<p>1、开始信号：SCL 为高电平时，SDA 由高电平向低电平跳变，开始传送数据。<br>2、结束信号：SCL 为高电平时，SDA 由低电平向高电平跳变，结束传送数据。<br>3、应答信号：接收数据的 IC 在接收到 8bit 数据后，向发送数据的 IC 发出特定的低电平脉冲，表示已收到数据。CPU 向受控单元发出一个信号后，等待受控单元发出一个应答信号，CPU 接收到应答信号后，根据实际情况作出是否继续传递信号的判断。若未收到应答信号，由判断为受控单元出现故障。</p>
+<h3 id="2、IIC的特征"><a href="#2、IIC的特征" class="headerlink" title="2、IIC的特征"></a>2、IIC的特征</h3><ul>
+<li>IIC串行总线一般有两根信号线，一根是双向的数据线SDA，另一根是时钟线SCL。</li>
+<li>每个连接到总线的器件都可以通过唯一的地址和一直存在的简单的主机&#x2F;从机关系软件设定地址， 主机可以作为主机发送器或主机接收器。</li>
+<li>多主机总线， 如果两个或更多主机同时初始化， 数据传输可以通过冲突检测和仲裁防止数据被破坏。</li>
+<li>串行的8 位双向数据传输位速率在标准模式下可达100kbit&#x2F;s， 快速模式下可达400kbit&#x2F;s， 高速模式下可达3.4Mbit&#x2F;s。</li>
+<li>总线上允许连接的设备数以其电容量不超过400pF为限。</li>
+</ul>
+<h3 id="3、IIC的从地址"><a href="#3、IIC的从地址" class="headerlink" title="3、IIC的从地址"></a>3、IIC的从地址</h3><p>IIC接口能识别它自己的地址(7位或10位)和广播呼叫地址。软件能够控制开启或禁止 广播呼叫地址的识别。<br>数据和地址按8位&#x2F;字节进行传输，高位在前。跟在起始条件后的1或2个字节是地址(7位模式为1 个字节，10位模式为2个字节)。地址只在主模式发送。<br><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220409110355169.png" alt="image-20220409110355169"></p>
+<ul>
+<li>7位寻址</li>
+</ul>
+<p>在7位寻址过程中，从机地址在启动信号后的第一个字节开始传输，该字节的前7位为从机地址，第8位为读写位，其中0表示写，1表示读。<br><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220409112218791.png" alt="image-20220409112218791"></p>
+<p>I2C总线规范规定，标准模式I2C，从机地址为7位长，其次是读&#x2F;写位。</p>
+<p>第一个字节的头7 位组成了从机地址， 最低位（LSB） 是第8 位， 它决定了传输的方向。<br>第一个字节的第8位是“0” ， 表示主机会写信息到被选中的从机。</p>
+<p>“1” 表示主机会向从机读信息， 当发送了一个地址后， 系统中的每个器件都在起始条件后将<br>头7 位与它自己的地址比较， 如果一样， 器件会判定它被主机寻址， 至于是从机接收器还是从机发送器， 都由R&#x2F;W 位决定。</p>
+<ul>
+<li>8位寻址</li>
+</ul>
+<p>厂商在提供从机地址的时候是包含了读写位的8bit地址，如写地址为0x92，读地址为0x93<br><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220409112653701.png" alt="image-20220409112653701"></p>
+<p>判断地址是7bit模式地址还是8bit地址模式的地址的方式：7bit地址模式下，地址的取值范围在0x07到0x78之间，若超过了这个范围，那么这个地址可能是8bit地址。</p>
+<ul>
+<li>10位寻址</li>
+</ul>
+<p>I2C总线的10bit寻址和7bit寻址是兼容的，这样就可以在同一个总线上同时使用7bit地址和10bit地址模式的设备，在进行10bit地址传输时，第一字节是一个特殊的保留地址来指示当前传输的是10bit地址。<br><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220409112828862.png" alt="image-20220409112828862"></p>
+<h3 id="4、IIC的连接"><a href="#4、IIC的连接" class="headerlink" title="4、IIC的连接"></a>4、IIC的连接</h3><ol>
+<li><p>IIC可以接多个主设备，多个从设备（外围 设备）,理论上可以挂127个从器件，但是规定了总线电容不能超过400pF，实际设计中大概是不超过8个器件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220409113356474.png" alt="image-20220409113356474"></p>
+</li>
+<li><p>当多主机会产生总线裁决问题。当多个主机同时想占用总线时，企图启动总线传输数据，就叫做总线竞争。I2C通过总线仲裁，以决定哪台主机控制总线。</p>
+</li>
+<li><p>上拉电阻一般在4.7k~10k之间，默认拉高。</p>
+</li>
+</ol>
+<h3 id="5、IIC实现方式"><a href="#5、IIC实现方式" class="headerlink" title="5、IIC实现方式"></a>5、IIC实现方式</h3><ol>
+<li><p>软件模拟IIC</p>
+<p>软件IIC是程序员使用程序控制SCL,SDA线输出高低电平，模拟i2c协议的时序。一般较硬件IIC稳定，但是程序较为繁琐，但不难。</p>
+</li>
+<li><p>硬件IIC</p>
+<p>硬件IIC程序员只要调用IIC的控制函数即可，不用直接的去控制SCL,SDA高低电平的输出。但是有些单片机的硬件IIC不太稳定，调试问题较多。</p>
+</li>
+<li><p>软件模拟IIC、硬件IIC的区别</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>软件模拟IIC</th>
+<th>硬件IIC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用法</td>
+<td>流程更清楚一些</td>
+<td>用法比较复杂</td>
+</tr>
+<tr>
+<td>速度</td>
+<td></td>
+<td>速度快、效率高、可以使用DMA</td>
+</tr>
+<tr>
+<td>适用管脚</td>
+<td>任何管脚</td>
+<td>固定管脚</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>稳定</td>
+<td>不太稳定</td>
+</tr>
+</tbody></table>
+<p>摘自原作者(<a href="https://blog.csdn.net/weixin_44933419">阿波罗啦啦啦啦</a>): <a href="https://blog.csdn.net/weixin_44933419/article/details/114991088">常用通信协议——IIC详解</a></p>
+]]></content>
+      <categories>
+        <category>嵌入式通信协议</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>中断事件</title>
+    <url>/2022/04/12/STM32_Interrupt/</url>
+    <content><![CDATA[<h3 id="什么是中断？"><a href="#什么是中断？" class="headerlink" title="什么是中断？"></a>什么是中断？</h3><p>中断是一个需要CPU立刻处理的内部&#x2F;外部事件</p>
+<p>——内部事件：定时器时间到</p>
+<p>​                                AD变换结束</p>
+<p>​                                ……</p>
+<p>——外部事件：按键动作</p>
+<p>​                                发生外部通信</p>
+<p>​                                ……</p>
+<ul>
+<li>内部&#x2F;外部事件请求CPU处理</li>
+<li>CPU停止正常流程，执行中断服务程序ISR</li>
+<li>ISR结束后，CPU返回正常流程</li>
+</ul>
+<h3 id="中断-VS-轮询"><a href="#中断-VS-轮询" class="headerlink" title="中断 VS 轮询"></a>中断 VS 轮询</h3><h5 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h5><ul>
+<li><p>适用于处理对响应要求非常高的事件</p>
+</li>
+<li><p>适用于处理持续事件非常短的事件</p>
+</li>
+<li><p>适用于低功耗的应用</p>
+</li>
+<li><p>程序设计较复杂</p>
+</li>
+</ul>
+<h5 id="轮询"><a href="#轮询" class="headerlink" title="轮询"></a>轮询</h5><ul>
+<li>适用于处理对事件响应要求低的场合</li>
+<li>程序设计简单</li>
+</ul>
+<h3 id="中断的工作流程"><a href="#中断的工作流程" class="headerlink" title="中断的工作流程"></a>中断的工作流程</h3><ul>
+<li>内部&#x2F;外部事件请求CPU处理</li>
+<li>CPU停止正常流程，执行中断服务程序ISR</li>
+<li>ISR结束后，CPU返回正常流程</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220412190215509.png" alt="image-20220412190215509"></p>
+<h3 id="中断服务子程ISR"><a href="#中断服务子程ISR" class="headerlink" title="中断服务子程ISR"></a>中断服务子程ISR</h3><p>中断服务子程ISR的共同特点：</p>
+<ul>
+<li>是被CPU硬件自动调用的，而不是其他程序代码中调用；</li>
+<li>在ISR执行前、后，CPU自动进行了堆栈出入等操作；</li>
+<li>写成C函数的参数和返回值都应为void；</li>
+</ul>
+<h3 id="中断向量表"><a href="#中断向量表" class="headerlink" title="中断向量表"></a>中断向量表</h3><ul>
+<li>中断向量表是一段连续的存储空间在复位后有默认的起始位置</li>
+<li>每个中断在向量表中都有相应的表项，该表项的值为该中断对应的服务程序的地址(地址指针)</li>
+<li>由程序代码确定中断向量表的每个表项</li>
+<li>中断向量表的位置是可以通过改写中断向量基址寄存器重新定位的</li>
+</ul>
+<h3 id="中断优先级"><a href="#中断优先级" class="headerlink" title="中断优先级"></a>中断优先级</h3><ul>
+<li><p>多个中断同时出现时，高优先级中断先得到响应</p>
+</li>
+<li><p>中断优先级可以是固定的或编程指定的</p>
+</li>
+<li><p>固定优先级：根据中断向量表顺序</p>
+<ul>
+<li>(比如S12的内核)</li>
+</ul>
+</li>
+<li><h2 id="设定优先级：每个中断都有优先级设置位"><a href="#设定优先级：每个中断都有优先级设置位" class="headerlink" title="设定优先级：每个中断都有优先级设置位"></a>设定优先级：每个中断都有优先级设置位</h2><p>  (比如ARM Cortex M0+支持4个优先级)</p>
+</li>
+<li><p>相同优先级的中断，按先后顺序处理</p>
+</li>
+</ul>
+<h3 id="中断嵌套规则"><a href="#中断嵌套规则" class="headerlink" title="中断嵌套规则"></a>中断嵌套规则</h3><ol>
+<li><p>具有高抢占式优先级的中断可以在具有低抢占式优先级的中断处理过程中被响应即中断嵌套，或者说高抢占式优先级的中断可以嵌套低抢占式优先级的中断。</p>
+</li>
+<li><p>当两个中断源的抢占式优先级相同时，这两个中断将没有嵌套关系，当一个中断到来后，如果正在处理另一个中断，这个后到来的中断就要等到前一个中断处理完之后才能被处理。</p>
+</li>
+<li><p>如果这两个中断同时到达，则中断控制器根据他们的响应优先级高低来决定先处理哪一个；如果他们抢占式优先级和响应优先级都相等，则根据他们在中断表排位顺序决定先处理哪一个。</p>
+</li>
+<li><p>响应优先级不可以中断嵌套。注意，中断优先级的概念针对“中断通道”，当中断通道的优先级确定后，该中断通道对应所有中断源都享有相同的中断优先级，至于该中断通道中对应多个中断源执行顺序，取决于用户的中断服务程序。</p>
+</li>
+</ol>
+<h3 id="中断优先级分组"><a href="#中断优先级分组" class="headerlink" title="中断优先级分组"></a>中断优先级分组</h3><p>中断优先级分组是为了给抢占式优先级和响应优先级在中断优先级寄存器的高四位，分配各个优先级数字所占的位数，在一个程序中只能设定一次。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220412214304649.png" alt="image-20220412214304649"></p>
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>存储器结构</title>
+    <url>/2022/03/27/STM32_Memory/</url>
+    <content><![CDATA[<p>2、存储器结构</p>
+<p>程序存储器、数据存储器、寄存器和输入输出端口，被组织在同一个4GB的线性地址空间内。可以通过地址的方法访问对应的存储器或者寄存器。</p>
+<p>存储器映像</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220405220521970.png" alt="image-20220405220521970"></p>
+<p>位段</p>
+<p>映射公式：bit_word_addr &#x3D; bit_band_base + (byte_offset×32) + (bit_number×4)<br>其中：<br>bit_word_addr是别名存储器区中字的地址，它映射到某个目标位。 bit_band_base是别名区的起始地址。<br>byte_offset是包含目标位的字节在位段里的序号 bit_number是目标位所在位置(0-31) </p>
+<p>例如：映射别名区中SRAM地址为0x20000300的字节中的位2： 0x22006008 &#x3D; 0x22000000 + (0x300×32) + (2×4).<br>对0x22006008地址的写操作与对SRAM中地址0x20000300字节的位2执行读-改-写操作有着相 同的效果。<br>读0x22006008地址返回SRAM中地址0x20000300字节的位2的值(0x01 或 0x00)。</p>
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>时钟控制(RCC)</title>
+    <url>/2022/04/05/STM32_RCC/</url>
+    <content><![CDATA[<h2 id="时钟控制-RCC"><a href="#时钟控制-RCC" class="headerlink" title="时钟控制(RCC)"></a>时钟控制(RCC)</h2><p>三种不同的时钟源可被用来驱动系统时钟(SYSCLK)：</p>
+<ul>
+<li><p>HSI振荡器时钟</p>
+</li>
+<li><p>HSE振荡器时钟</p>
+</li>
+<li><p>PLL时钟</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220407154447969.png" alt="image-20220407154447969"></p>
+</li>
+</ul>
+<p>外部低速时钟（LSE）</p>
+<p>可以被选择作为RTC时钟源</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220407154858007.png" alt="image-20220407154858007"></p>
+<p>内部低速时钟（LSI）</p>
+<ol>
+<li>可以作为独立看门狗时钟源</li>
+<li>可以被选择作为RTC时钟源</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220407155135138.png" alt="image-20220407155135138"></p>
+<p><strong>注： 当不被使用时，任一个时钟源都可被独立地启动或关闭，由此优化系统  功耗。</strong></p>
+<ol>
+<li><p>当HSI被用于作为PLL时钟的输入时，系统时钟能得到的最大频率是64MHz。</p>
+</li>
+<li><p>对于内部和外部时钟源的特性，请参考相应产品数据手册中“电气特性”章节。<br> 用户可通过多个预分频器配置AHB、高速APB(APB2)和低速APB(APB1)域的频率。AHB和 APB2域的最大频率是72MHz。APB1域的最大允许频率是36MHz。SDIO接口的时钟频率固定 为HCLK&#x2F;2。<br> RCC通过AHB时钟(HCLK)8分频后作为Cortex系统定时器(SysTick)的外部时钟。通过对SysTick 控制与状态寄存器的设置，可选择上述时钟或Cortex(HCLK)时钟作为SysTick时钟。ADC时钟 由高速APB2时钟经2、4、6或8分频后获得。<br> 定时器时钟频率分配由硬件按以下2种情况自动设置：</p>
+</li>
+<li><p>如果相应的APB预分频系数是1，定时器的时钟频率与所在APB总线频率一致。</p>
+</li>
+<li><p>否则，定时器的时钟频率被设为与其相连的APB总线频率的2倍。</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220407155810047.png" alt="image-20220407155810047"></p>
+<p>APB1与APB2分别控制的外设：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220406171150232.png" alt="image-20220406171150232"></p>
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32启动配置</title>
+    <url>/2022/04/01/STM32_Start/</url>
+    <content><![CDATA[<h5 id="1、启动模式"><a href="#1、启动模式" class="headerlink" title="1、启动模式"></a>1、启动模式</h5><p>在STM32F10xxx里，可以通过BOOT[1:0]引脚选择三种不同启动模式：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220406141851475.png" alt="image-20220406141851475"></p>
+<h5 id="2、启动方式："><a href="#2、启动方式：" class="headerlink" title="2、启动方式："></a>2、启动方式：</h5><p>内部的Flash中启动</p>
+<p>存储器映射:</p>
+<p>0x0000 0000 ——0x0800 0000 映射的内部Flash</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220407140101622.png" alt="image-20220407140101622"></p>
+<h5 id="3、启动文件"><a href="#3、启动文件" class="headerlink" title="3、启动文件"></a>3、启动文件</h5><p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220407135748517.png" alt="image-20220407135748517"></p>
+<p>cl：互联型                stm32f105&#x2F;107系列</p>
+<p>vl：超值型                stm32f100系列</p>
+<p>xl：超高密度型        stm32f101&#x2F;103系列</p>
+<p>flash容量大小：</p>
+<p>ld：小容量，小于64KB</p>
+<p>md：中等容量，64KB&#x2F;128KB</p>
+<p>hd：大容量，大于128KB</p>
+<h5 id="4、启动文件分析"><a href="#4、启动文件分析" class="headerlink" title="4、启动文件分析"></a>4、启动文件分析</h5><p>上电或按下复位按键，从Reset_Handler开始执行。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220407152257650.png" alt="image-20220407152257650"></p>
+<p>执行的第一个函数：SystemInit(初始化flash接口、初始化PLL、初始化系统时钟)</p>
+<p>执行的第二个函数：__main(属于C库函数，作用：完成全局&#x2F;静态变量的初始化、初始化堆栈、库函数初始化、程序的跳转，进入用户的main函数入口)</p>
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32常见的通信方式</title>
+    <url>/2022/03/10/STM32_TranSports/</url>
+    <content><![CDATA[<h1 id="STM32常见通信方式-TTL、RS232、RS485、I2C、SPI、USTART、CAN"><a href="#STM32常见通信方式-TTL、RS232、RS485、I2C、SPI、USTART、CAN" class="headerlink" title="STM32常见通信方式(TTL、RS232、RS485、I2C、SPI、USTART、CAN)"></a>STM32常见通信方式(TTL、RS232、RS485、<del>I2C、SPI、USTART</del>、CAN)</h1><h5 id="一、TTL电平"><a href="#一、TTL电平" class="headerlink" title="一、TTL电平"></a>一、TTL电平</h5><p>​                            全双工（逻辑1: 2.4V–5V  逻辑0: 0V–0.4V），用于两个MCU之间通信</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220404104828649.png" alt="image-20220404104828649"></p>
+<h5 id="二、RS232"><a href="#二、RS232" class="headerlink" title="二、RS232"></a>二、RS232</h5><p>​                            全双工（逻辑1：-15V–5V  逻辑0：+3V–+15V），用于MCU与PC之间数据交换</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220404105716394.png" alt="image-20220404105716394"></p>
+<h5 id="三、RS485"><a href="#三、RS485" class="headerlink" title="三、RS485"></a>三、RS485</h5><p>​                            半双工（逻辑1：+2V–+6V  逻辑0： -6V—2V），电平的表示指AB引脚线的电压之差</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220404110100596.png" alt="image-20220404110100596"></p>
+<h5 id="四、CAN总线"><a href="#四、CAN总线" class="headerlink" title="四、CAN总线"></a>四、CAN总线</h5><p>​                        逻辑1：-1.5V–0V  逻辑0：+1.5V–+3V）这里的电平指CAN_High，CAN_Low 两线间的电压差</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220404110411637.png" alt="image-20220404110411637"></p>
+<p>以上通信方式总结：</p>
+<ol>
+<li>RS232、RS-485信号最终转换为TTL电平方式与MCU通信（CAN收发器将差分信号转化为TTL–&gt;MCU）。这样做的目的都是为了提高通信质量，提高抗干扰能力。</li>
+<li>TTL、RS232为逻辑电平信号。RS-485、CAN为差分信号。</li>
+</ol>
+<h5 id="五、SPI"><a href="#五、SPI" class="headerlink" title="五、SPI"></a><del>五、SPI</del></h5><h5 id="六、IIC"><a href="#六、IIC" class="headerlink" title="六、IIC"></a><del>六、IIC</del></h5><h5 id="七、USTART"><a href="#七、USTART" class="headerlink" title="七、USTART"></a><del>七、USTART</del></h5><p>​                                 <u><strong>IIC、SPI、USTART将在后续逐一进行详细介绍。</strong></u></p>
+<p>嵌入式通信形式：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220412203736563.png" alt="image-20220412203736563"></p>
+]]></content>
+      <categories>
+        <category>嵌入式通信协议</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>串口应用(USTART)</title>
+    <url>/2022/04/08/STM32_USTART/</url>
+    <content><![CDATA[<h2 id="串行口应用"><a href="#串行口应用" class="headerlink" title="串行口应用"></a>串行口应用</h2><h5 id="1、USART介绍"><a href="#1、USART介绍" class="headerlink" title="1、USART介绍"></a>1、USART介绍</h5><p>通用同步异步收发器(USART)提供了一种灵活的方法与使用工业标准NRZ异步串行数据格式的 外部设备之间进行全双工数据交换。USART利用分数波特率发生器提供宽范围的波特率选择。 它支持同步单向通信和半双工单线通信，也支持LIN(局部互连网)，智能卡协议和IrDA(红外数据 组织)SIR ENDEC规范，以及调制解调器(CTS&#x2F;RTS)操作。它还允许多处理器通信。使用多缓冲器配置的DMA方式，可以实现高速数据通信。</p>
+<h5 id="2、USART-与-UART的区别"><a href="#2、USART-与-UART的区别" class="headerlink" title="2、USART 与 UART的区别"></a>2、USART 与 UART的区别</h5><p>同步(UART)、同步&#x2F;异步(USART)区别：同步与异步的显著区别在于是否具有同一时钟源</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220408152708497.png" alt="image-20220408152708497"></p>
+<h5 id="3、通信方式："><a href="#3、通信方式：" class="headerlink" title="3、通信方式："></a>3、通信方式：</h5><p>并行通信和串行通信。</p>
+<p>异步串行通信格式：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220412163758755.png" alt="image-20220412163758755"></p>
+<h5 id="4、串口配置"><a href="#4、串口配置" class="headerlink" title="4、串口配置"></a>4、串口配置</h5><p>串口设置步骤：</p>
+<ul>
+<li>串行口时钟使能，GPIO时钟使能</li>
+<li>串行口复位</li>
+<li>GPIO 端口模式设置</li>
+<li>串口参数初始化</li>
+<li>开启中断并且初始化 NVIC （根据需求开启）</li>
+<li>使能端口</li>
+<li>编写中断处理函数</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">uart_init</span><span class="params">(u32 bound)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//GPIO端口设置</span></span><br><span class="line">	GPIO_InitTypeDef GPIO_InitStructure;</span><br><span class="line">	USART_InitTypeDef USART_InitStructure;</span><br><span class="line">	NVIC_InitTypeDef NVIC_InitStructure;</span><br><span class="line"></span><br><span class="line">	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1|RCC_APB2Periph_GPIOA, ENABLE);	<span class="comment">//使能USART1，GPIOA时钟</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//USART1_TX   GPIOA.9</span></span><br><span class="line">	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9; <span class="comment">//PA.9</span></span><br><span class="line">	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line">	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;	<span class="comment">//复用推挽输出</span></span><br><span class="line">	GPIO_Init(GPIOA, &amp;GPIO_InitStructure);<span class="comment">//初始化GPIOA.9</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//USART1_RX	  GPIOA.10初始化</span></span><br><span class="line">	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;<span class="comment">//PA10</span></span><br><span class="line">	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;<span class="comment">//浮空输入</span></span><br><span class="line">	GPIO_Init(GPIOA, &amp;GPIO_InitStructure);<span class="comment">//初始化GPIOA.10  </span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//Usart1 NVIC 配置</span></span><br><span class="line">	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;</span><br><span class="line">	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=<span class="number">3</span> ;<span class="comment">//抢占优先级3</span></span><br><span class="line">	NVIC_InitStructure.NVIC_IRQChannelSubPriority = <span class="number">3</span>;		<span class="comment">//子优先级3</span></span><br><span class="line">	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			<span class="comment">//IRQ通道使能</span></span><br><span class="line">	NVIC_Init(&amp;NVIC_InitStructure);	<span class="comment">//根据指定的参数初始化VIC寄存器</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//USART 初始化设置</span></span><br><span class="line">	USART_InitStructure.USART_BaudRate = bound;<span class="comment">//串口波特率</span></span><br><span class="line">	USART_InitStructure.USART_WordLength = USART_WordLength_8b;<span class="comment">//字长为8位数据格式</span></span><br><span class="line">	USART_InitStructure.USART_StopBits = USART_StopBits_1;<span class="comment">//一个停止位</span></span><br><span class="line">	USART_InitStructure.USART_Parity = USART_Parity_No;<span class="comment">//无奇偶校验位</span></span><br><span class="line">	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;<span class="comment">//无硬件数据流控制</span></span><br><span class="line">	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;	<span class="comment">//收发模式</span></span><br><span class="line">  USART_Init(USART1, &amp;USART_InitStructure); <span class="comment">//初始化串口1</span></span><br><span class="line">  USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);<span class="comment">//开启串口接受中断</span></span><br><span class="line">  USART_Cmd(USART1, ENABLE);                    <span class="comment">//使能串口1 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="5、主函数"><a href="#5、主函数" class="headerlink" title="5、主函数"></a>5、主函数</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;sys.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;usart.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;led.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;delay.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;	</span><br><span class="line">	LED_Init();</span><br><span class="line">    delay_init();</span><br><span class="line">	ustart_init(<span class="number">115200</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请开始输入字符串:\n&quot;</span>);</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">	  GPIO_WriteBit(GPIOA, GPIO_Pin_8, (BitAction)(<span class="number">1</span>-(GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_8))));</span><br><span class="line">		delay_ms(<span class="number">500</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上部分来源于网络，若有侵权请联系博主删除。</p>
+]]></content>
+      <categories>
+        <category>嵌入式通信协议</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32主系统架构</title>
+    <url>/2022/03/21/STM_ARM_System/</url>
+    <content><![CDATA[<h2 id="1、主系统架构"><a href="#1、主系统架构" class="headerlink" title="1、主系统架构"></a>1、主系统架构</h2><h3 id="1-四个驱动单元"><a href="#1-四个驱动单元" class="headerlink" title="1.四个驱动单元"></a>1.四个驱动单元</h3><p>​    Cortex-M3内核</p>
+<p>​    Dcode总线(D-bus)</p>
+<p>​    System总线(S-bus)</p>
+<p>​    DMA1&amp;DMA2</p>
+<h3 id="2-四个被动单元"><a href="#2-四个被动单元" class="headerlink" title="2.四个被动单元"></a>2.四个被动单元</h3><p>​    内部SRAM</p>
+<p>​    内部Flash</p>
+<p>​    FSMC</p>
+<p>​    AHB到APB的桥(AHB——&gt;APBx)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220405210559713.png" alt="image-20220405210559713"></p>
+<h5 id="ICode总线"><a href="#ICode总线" class="headerlink" title="ICode总线"></a>ICode总线</h5><p>​    该总线将Cortex™-M3内核的指令总线与闪存指令接口相连接。指令预取在此总线上完成。 DCode总线<br>该总线将Cortex™-M3内核的DCode总线与闪存存储器的数据接口相连接(常量加载和调试访 问)。</p>
+<h5 id="系统总线"><a href="#系统总线" class="headerlink" title="系统总线"></a>系统总线</h5><p>​    此总线连接Cortex™-M3内核的系统总线(外设总线)到总线矩阵，总线矩阵协调着内核和DMA间 的访问。</p>
+<h5 id="DMA总线"><a href="#DMA总线" class="headerlink" title="DMA总线"></a>DMA总线</h5><p>​    此总线将DMA的AHB主控接口与总线矩阵相联，总线矩阵协调着CPU的DCode和DMA到 SRAM、闪存和外设的访问。</p>
+<h5 id="总线矩阵"><a href="#总线矩阵" class="headerlink" title="总线矩阵"></a>总线矩阵</h5><p>​    总线矩阵协调内核系统总线和DMA主控总线之间的访问仲裁，仲裁利用轮换算法。</p>
+<h5 id="AHB-x2F-APB桥-APB"><a href="#AHB-x2F-APB桥-APB" class="headerlink" title="AHB&#x2F;APB桥(APB)"></a>AHB&#x2F;APB桥(APB)</h5><p>​    两个AHB&#x2F;APB桥在AHB和2个APB总线间提供同步连接。APB1操作速度限于36MHz，APB2操 作于全速(最高72MHz)</p>
+<p><strong>注：在每一次复位以后，所有除SRAM和 FLITF以外的外设都被关闭，在使用一个外设之前，必须设置寄存器RCC_AHBENR来打开该外设的时钟。</strong></p>
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机总线和CPU工作原理</title>
+    <url>/2022/03/15/System_Bus/</url>
+    <content><![CDATA[<h1 id="总线和CPU工作原理"><a href="#总线和CPU工作原理" class="headerlink" title="总线和CPU工作原理"></a>总线和CPU工作原理</h1><h2 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h2><p>总线是计算机中各个部件之间传递信息的公共通信干线，按照其传递信息的类型可以分为数据总线（DB）、地址总线（AB）、控制总线（CB）</p>
+<h2 id="DMA总线"><a href="#DMA总线" class="headerlink" title="DMA总线"></a>DMA总线</h2><p>DMA即直接存储器访问，使用DMA总线可以不通过CPU直接在存储器之间进行数据传递</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220404161532792.png" alt="image-20220404161532792"></p>
+<h2 id="CPU工作原理"><a href="#CPU工作原理" class="headerlink" title="CPU工作原理"></a>CPU工作原理</h2><p><img src="https://cdn.jsdelivr.net/gh/lazybearx/CDN@main/img/image-20220404202947745.png" alt="image-20220404202947745"></p>
+<h4 id="指令的执行过程："><a href="#指令的执行过程：" class="headerlink" title="指令的执行过程："></a>指令的执行过程：</h4><h5 id="1-取址"><a href="#1-取址" class="headerlink" title="1.取址"></a>1.取址</h5><p>​                CPU将PC寄存器中的地址发送给内存，内存将其地址中对应的指令返回到CPU中的指令寄存器（IR）</p>
+<h5 id="2-译码"><a href="#2-译码" class="headerlink" title="2.译码"></a>2.译码</h5><p>​                译码器对IR寄存器中的指令进行识别，将指令解析成具体的运算</p>
+<h5 id="3-执行"><a href="#3-执行" class="headerlink" title="3.执行"></a>3.执行</h5><p>​                控制器控制运算器中对应的运算单元进行运算，运算结果写入寄存器</p>
+<p>注：<strong>每执行一条指令后PC的值会自动增加指向下一条指令</strong></p>
+]]></content>
+      <categories>
+        <category>计算机体系结构</category>
+      </categories>
+      <tags>
+        <tag>计算机体系结构</tag>
+      </tags>
+  </entry>
+</search>
